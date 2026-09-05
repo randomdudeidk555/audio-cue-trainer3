@@ -12,28 +12,33 @@ if(ANDROID)
 endif()
 
 # ---------------------------------------------------------------------------
+# Zdroje projektu
+# ---------------------------------------------------------------------------
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+# ---------------------------------------------------------------------------
 # Geode SDK
 # ---------------------------------------------------------------------------
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR
         "Unable to find Geode SDK! Please define the GEODE_SDK environment "
-        "variable to point to your Geode SDK installation "
-        "(see https://docs.geode-sdk.org for setup instructions)."
+        "variable to point to your Geode SDK installation."
     )
 endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
 # ---------------------------------------------------------------------------
-# Zdroje a Nastavení Geode Modu
+# Registrace Geode Modu
 # ---------------------------------------------------------------------------
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+# Vytvoření mod targetu
+setup_geode_mod(${PROJECT_NAME}
+    SOURCES ${SOURCES}
 )
 
-# NEPOUŽÍVAT add_library! Geode si vytvoří target automaticky.
-setup_geode_mod(${PROJECT_NAME} SOURCES ${SOURCES})
-
+# Vložení include složky přímo do vytvořeného targetu
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
