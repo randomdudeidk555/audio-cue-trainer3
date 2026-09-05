@@ -32,3 +32,4 @@ jobs:
         uses: geode-sdk/build-geode-mod@main
         with:
           target: ${{ matrix.config.target }}
+          android-ndk-version: "26.3.11579264"
