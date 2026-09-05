@@ -5,18 +5,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ---------------------------------------------------------------------------
-# Oprava pro Android NDK (zpřístupní std::atomic_ref a C++20/23 prvky)
+# Oprava pro Android NDK (C++20/23 v libc++)
 # ---------------------------------------------------------------------------
 if(ANDROID)
     add_compile_options(-fexperimental-library)
 endif()
-
-# ---------------------------------------------------------------------------
-# Zdroje projektu
-# ---------------------------------------------------------------------------
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-)
 
 # ---------------------------------------------------------------------------
 # Geode SDK
@@ -31,21 +24,15 @@ endif()
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
 # ---------------------------------------------------------------------------
-# Registrace Geode Modu
+# Zdroje modu
 # ---------------------------------------------------------------------------
-# Vytvoření mod targetu
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+# ---------------------------------------------------------------------------
+# Registrace Geode Modu (důležité: předáváme pouze SOURCES)
+# ---------------------------------------------------------------------------
 setup_geode_mod(${PROJECT_NAME}
     SOURCES ${SOURCES}
 )
-
-# Vložení include složky přímo do vytvořeného targetu
-target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-# ---------------------------------------------------------------------------
-# Additional target configuration (if needed)
-# ---------------------------------------------------------------------------
-# Add any target_link_libraries() calls here after setup_geode_mod()
-# Example:
-# target_link_libraries(${PROJECT_NAME} PRIVATE some_library)
