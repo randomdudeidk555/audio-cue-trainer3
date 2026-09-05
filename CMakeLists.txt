@@ -42,3 +42,10 @@ setup_geode_mod(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+# ---------------------------------------------------------------------------
+# Additional target configuration (if needed)
+# ---------------------------------------------------------------------------
+# Add any target_link_libraries() calls here after setup_geode_mod()
+# Example:
+# target_link_libraries(${PROJECT_NAME} PRIVATE some_library)
