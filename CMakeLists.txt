@@ -34,4 +34,5 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
 # Registrace Geode Modu
 setup_geode_mod(${PROJECT_NAME}
     SOURCES ${SOURCES}
+    DOCS TRUE
 )
