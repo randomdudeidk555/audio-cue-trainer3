@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
-project(AudioCueTrainer VERSION 1.0.0 LANGUAGES CXX)
+
+# Název projektu musí přesně odpovídat názvu z mod.json (bez prefixu autorstva)
+project(audio_cue_trainer VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,8 +18,7 @@ endif()
 # ---------------------------------------------------------------------------
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR
-        "Unable to find Geode SDK! Please define the GEODE_SDK environment "
-        "variable to point to your Geode SDK installation."
+        "Unable to find Geode SDK! Please define the GEODE_SDK environment variable."
     )
 endif()
 
@@ -30,9 +31,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-# ---------------------------------------------------------------------------
-# Registrace Geode Modu (důležité: předáváme pouze SOURCES)
-# ---------------------------------------------------------------------------
+# Registrace Geode Modu
 setup_geode_mod(${PROJECT_NAME}
     SOURCES ${SOURCES}
 )
