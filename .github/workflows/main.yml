@@ -35,7 +35,7 @@ jobs:
         shell: bash
 
       - name: Build Geode Mod
-        uses: geode-sdk/build-geode-mod@v4
+        uses: geode-sdk/build-geode-mod@main
         with:
           target: ${{ matrix.config.target }}
           android-ndk-version: "28.1.13356709"
