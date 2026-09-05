@@ -6,11 +6,11 @@
 		"mac": "2.2081",
 		"ios": "2.2081"
 	},
-	"id": "$MOD_ID",
-	"name": "$MOD_NAME",
-	"version": "$MOD_VERSION",
-	"developer": "$MOD_DEVELOPER",
-	"description": "$MOD_DESCRIPTION",
+	"id": "randomdudeidk555.audio_cue_trainer3",
+	"name": "Audio Cue Trainer",
+	"version": "v1.0.0",
+	"developer": "randomdudeidk555",
+	"description": "Trénink audio cues v Geometry Dash",
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3"
 	}
