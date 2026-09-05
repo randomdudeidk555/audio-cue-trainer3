@@ -1,10 +1,17 @@
 cmake_minimum_required(VERSION 3.21)
 
-# Project name must match the mod ID from mod.json (without developer prefix)
+# Název projektu (přebírá se automaticky do ${PROJECT_NAME})
 project(audio_cue_trainer VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# ---------------------------------------------------------------------------
+# OPRAVA PRO ANDROID (povolení C++20/23 funkcí v libc++)
+# ---------------------------------------------------------------------------
+if(ANDROID)
+    add_compile_options(-fexperimental-library)
+endif()
 
 # ---------------------------------------------------------------------------
 # Geode SDK
@@ -24,8 +31,9 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
+# ---------------------------------------------------------------------------
 # Registrace Geode Modu
+# ---------------------------------------------------------------------------
 setup_geode_mod(${PROJECT_NAME}
     SOURCES ${SOURCES}
-    DOCS TRUE
 )
