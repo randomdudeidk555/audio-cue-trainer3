@@ -5,18 +5,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ---------------------------------------------------------------------------
-# Oprava pro Android NDK (zpřístupní std::atomic_ref a další C++20/23 prvky)
+# Oprava pro Android NDK (zpřístupní std::atomic_ref a C++20/23 prvky)
 # ---------------------------------------------------------------------------
 if(ANDROID)
     add_compile_options(-fexperimental-library)
 endif()
-
-# ---------------------------------------------------------------------------
-# Zdroje
-# ---------------------------------------------------------------------------
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-)
 
 # ---------------------------------------------------------------------------
 # Geode SDK
@@ -31,7 +24,14 @@ endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-# Nastavení Geode modu se zdrojovými soubory
+# ---------------------------------------------------------------------------
+# Zdroje a Nastavení Geode Modu
+# ---------------------------------------------------------------------------
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+# NEPOUŽÍVAT add_library! Geode si vytvoří target automaticky.
 setup_geode_mod(${PROJECT_NAME} SOURCES ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
