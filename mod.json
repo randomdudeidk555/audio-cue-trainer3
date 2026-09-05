@@ -1,9 +1,9 @@
 {
     "geode": "5.10.1",
     "gd": {
-        "win": "2.2074",
-        "android": "2.2074",
-        "mac": "2.2074"
+        "win": "2.2081",
+        "android": "2.2081",
+        "mac": "2.2081"
     },
     "id": "randomdudeidk555.audio_cue_trainer",
     "name": "Audio Cue Trainer",
@@ -11,8 +11,12 @@
     "developer": "randomdudeidk555",
     "description": "Train click patterns with audio cues instead of visual timing. Plays a short beep before each scheduled click - you always perform the click yourself.",
     "repository": "https://github.com/randomdudeidk555/audio-cue-trainer3",
-    "tags": ["gameplay", "utility", "practice", "training"],
-
+    "tags": [
+        "gameplay",
+        "utility",
+        "practice",
+        "training"
+    ],
     "settings": {
         "enabled": {
             "name": "Enable Audio Cues",
