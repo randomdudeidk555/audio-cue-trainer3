@@ -19,7 +19,7 @@ namespace {
 // level right now". Everything else (CueScheduler) is fed this value and
 // never reads a clock on its own.
 //
-// `PlayLayer::m_time` is GD's own level-elapsed-time field (used
+// `PlayLayer::m_currentTime` is GD's own level-elapsed-time field (used
 // internally for e.g. the progress bar / "time" stat). RobTop's engine
 // keeps this synced to the currently playing song whenever the level has
 // one, and simply accumulates delta-time when it doesn't - either way, it
@@ -28,15 +28,15 @@ namespace {
 // or stutters. That makes it the best "song/game clock" available to a
 // mod without reaching into FMOD's channel/DSP clock directly.
 //
-// COMPATIBILITY NOTE: `m_time`'s exact name/offset comes from Geode's
-// generated bindings (Geode/binding/PlayLayer.hpp or GJBaseGameLayer.hpp)
-// for whichever GD version your SDK targets. If a future GD update
-// renames this field, this is the only function that needs to change -
-// look in that binding header for the level-time-in-seconds field
-// (search for "time") and update the cast below.
+// COMPATIBILITY NOTE: `m_currentTime`'s exact name/offset comes from
+// Geode's generated bindings (Geode/binding/PlayLayer.hpp) for whichever
+// GD version your SDK targets. If a future GD update renames this field,
+// this is the only function that needs to change - look in that binding
+// header for the level-time-in-seconds field (search for "time") and
+// update the cast below.
 double currentLevelTime(PlayLayer* pl) {
     if (!pl) return 0.0;
-    return static_cast<double>(pl->m_time);
+    return static_cast<double>(pl->m_currentTime);
 }
 
 } // namespace
@@ -45,8 +45,8 @@ double currentLevelTime(PlayLayer* pl) {
 // PlayLayer hooks: level start / restart / per-frame check / leaving level
 // ---------------------------------------------------------------------------
 class $modify(ACT_PlayLayer, PlayLayer) {
-    bool init(GJGameLevel* level) {
-        if (!PlayLayer::init(level)) return false;
+    bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
+        if (!PlayLayer::init(level, useReplay, dontCreateObjects)) return false;
 
         // Pre-warm the synthesized cue sound as soon as the level starts,
         // so the very first cue of the attempt doesn't pay a one-time
