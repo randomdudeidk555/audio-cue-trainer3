@@ -19,7 +19,7 @@ public:
     static TrainerPopup* create();
 
 protected:
-    bool setup() override;
+    bool setup();
     void refreshInfoLabel();
 
     void onTestCue(cocos2d::CCObject*);
