@@ -28,11 +28,11 @@ jobs:
       - name: Install Android NDK
         if: runner.os == 'Linux'
         run: |
-          echo "y" | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;28.1.13356709"
+          echo "y" | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;29.0.13846066"
         shell: bash
 
       - name: Build Geode Mod
         uses: geode-sdk/build-geode-mod@main
         with:
           target: ${{ matrix.config.target }}
-          android-ndk-version: "28.1.13356709"
+          android-ndk-version: "29.0.13846066"
