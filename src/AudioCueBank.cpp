@@ -128,11 +128,11 @@ void AudioCueBank::play(float volume) {
     // through GD's own path-based playEffect() wrapper.
     const auto result = fmod->m_system->playSound(m_sound, nullptr, false, &channel);
     if (result == FMOD_OK && channel) {
-        // COMPATIBILITY NOTE: `m_effectsVolume` is the SFX volume field
-        // name in current bindings. If it's renamed in your SDK version,
-        // check Geode/binding/FMODAudioEngine.hpp for the current name
-        // (search for "effect" or "sfx").
-        const float sfxVolume = fmod->m_effectsVolume;
+        // TEMPORARY: fixed at full volume until the correct SFX-volume
+        // member/getter name for this Geode bindings version is confirmed
+        // (the previous name, m_effectsVolume, no longer exists on
+        // FMODAudioEngine in bindings 2.2081).
+        const float sfxVolume = 1.0f;
         channel->setVolume(std::clamp(sfxVolume * volume, 0.f, 1.f));
     }
 }
