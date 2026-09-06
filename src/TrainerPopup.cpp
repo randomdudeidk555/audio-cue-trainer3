@@ -9,7 +9,7 @@ namespace act {
 
 TrainerPopup* TrainerPopup::create() {
     auto ret = new TrainerPopup();
-    if (ret->initAnchored(300.f, 220.f)) {
+    if (ret->init(300.f, 220.f)) {
         ret->autorelease();
         return ret;
     }
