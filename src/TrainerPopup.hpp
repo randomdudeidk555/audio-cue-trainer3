@@ -14,7 +14,7 @@ namespace act {
 // normal Settings screen where Geode already gives the player a proper
 // slider/number UI for free.
 // ---------------------------------------------------------------------------
-class TrainerPopup : public geode::Popup<> {
+class TrainerPopup : public geode::Popup {
 public:
     static TrainerPopup* create();
 
